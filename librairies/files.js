@@ -11,7 +11,7 @@ const getYamlInformationFromFile = (path) => {
 };
 
 const getFileContent = (path) => {
-  return fs.readFileSync(getModulePath() + path, "utf8");
+  return fs.readFileSync(path, "utf8");
 };
 
 module.exports = {

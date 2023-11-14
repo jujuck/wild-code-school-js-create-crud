@@ -1,5 +1,5 @@
-const { getTableName } = require("./librairies/user");
-const { checkIfTableExist } = require("./librairies/verification");
+const { getTableName } = require("wild-crud-js/librairies/user");
+const { checkIfTableExist } = require("wild-crud-js/librairies/checks");
 
 (async () => {
   const table = await getTableName();
