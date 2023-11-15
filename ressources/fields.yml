@@ -1,0 +1,24 @@
+name:
+  statement: |-
+    Quel est le nom de votre champs ?
+type:
+  statement: |-
+    Quel est le type de champs ?
+  answers:
+    - TINYINT
+    - INT
+    - FLOAT
+    - DATE
+    - DATETIME
+    - VARCHAR
+    - TEXT
+    - LONGTEXT
+varchar:
+  statement:
+    Nombre de caractères ?
+mandatory:
+  statement:
+    Votre champ est il obligatoire ?
+  answers:
+    - Oui
+    - Non
