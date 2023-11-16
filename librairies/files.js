@@ -10,11 +10,27 @@ const getYamlInformationFromFile = (path) => {
   return YAML.parse(file);
 };
 
+/**
+ * Récupère le contenu d'un fichier
+ * @param {string} path
+ * @returns
+ */
 const getFileContent = (path) => {
   return fs.readFileSync(path, "utf8");
 };
 
+/**
+ * Enregistre un nouveau fichier
+ * @param {string} file
+ * @param {string} path
+ * @returns
+ */
+const setFile = async (file, path) => {
+  return await fs.writeFileSync(path, file);
+}
+
 module.exports = {
   getYamlInformationFromFile,
   getFileContent,
+  setFile
 };

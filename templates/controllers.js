@@ -1,6 +1,5 @@
 const constructController = (table) => {
-  return `
-  // Import access to database tables
+  return `// Import access to database tables
 const tables = require("../tables");
 
 // The B of BREAD - Browse (Read All) operation
@@ -47,7 +46,7 @@ const edit = async (req, res, next) => {
     await tables.${table}.update(${table}, req.params.id);
 
     // Respond with HTTP 204 (No Content)
-    res.sendStatus(204)
+    res.sendStatus(204);
   } catch (err) {
     // Pass any errors to the error-handling middleware
     next(err);
@@ -98,6 +97,4 @@ module.exports = {
 `
 }
 
-module.exports = {
-  constructController
-};
+module.exports = constructController;
