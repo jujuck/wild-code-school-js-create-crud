@@ -43,7 +43,7 @@ const getField = async () => {
  *  fieldName: string,
  *  fieldType: string,
  *  long: string,
- *  mandatory: string
+ *  mandatoryField: string
  * }]
  */
 const getFields = async () => {
