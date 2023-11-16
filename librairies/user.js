@@ -7,7 +7,7 @@ const { getYamlInformationFromFile } = require("./files");
  */
 const getTableName = async () => {
   const data = await getYamlInformationFromFile("ressources/table.yml");
-  return input({ message: data.statement });
+  return (await input({ message: data.statement })).toLowerCase();
 };
 
 /**
