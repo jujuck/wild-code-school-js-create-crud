@@ -23,16 +23,42 @@ const error = console.error;
     const fields = await getFields();
 
     // Création et enregistrement du controller
-    const controllers = constructController(table);
-    await setFile(controllers, `./src/controllers/${table}Controllers.js`);
+    //const controllers = constructController(table);
+    //await setFile(controllers, `./src/controllers/${table}Controllers.js`);
+    // Donner un message de validation à l'utilisateur
 
     // Création et enregistrement du manager
-    const managers = constructManager(table, fields, capitalizeTable);
-    await setFile(managers, `./src/models/${capitalizeTable}Managers.js`)
+    //const managers = constructManager(table, fields, capitalizeTable);
+    //await setFile(managers, `./src/models/${capitalizeTable}Managers.js`)
+    // Donner un message de validation à l'utilisateur
 
     // Modification du tables.js
-    const tables = await manageTables(capitalizeTable);
-    await setFile(tables, `./src/tables.js`)
+    //const tables = await manageTables(capitalizeTable);
+    //await setFile(tables, `./src/tables.js`);
+    // Donner un message de validation à l'utilisateur
+
+    // Création du fichiers de validation de données
+    // Besoin de connaitre quelle librairie est utilisée (joy ou express-validator)
+    // Création ou non d'un dossier middleware
+    // Donner un message de validation à l'utilisateur
+
+
+    // Mise à jour des routes
+    // Import du controllers et des middleswares
+    // Donner un message de validation à l'utilisateur
+
+
+    // Mise en place de la création de la db et insert de 3 linge avec faker
+    // => redonner l'info des n° des lignes insérés
+    // Donner un message de validation à l'utilisateur
+
+
+
+    // Mise en place des tests
+    // Donner un message de validation à l'utilisateur
+
+
+
 
   } else {
     error(chalk.red(`La table -- ${table} -- semble déjà exister. Verifier puis recommencer !`))

@@ -1,5 +1,6 @@
 const { select, checkbox, confirm, input } = require("@inquirer/prompts");
 const { getYamlInformationFromFile } = require("./files");
+const { getProxy } = require("wild-crud-js/librairies/valid");
 
 /**
  * Demande le nom de la table à l'utilisateur
@@ -28,13 +29,15 @@ const getChoices = (choices) => {
  *  mandatory: string
  * }
  */
-const getField = async () => {
+const getField = async (validator) => {
   const { name, type, varchar, mandatory } = await getYamlInformationFromFile("ressources/fields.yml");
   const fieldName = await input({ message: name.statement});
   const fieldType = await select({ message: type.statement, choices: getChoices(type.answers)});
   const long = fieldType === "VARCHAR" ?  await input({ message: varchar.statement}) : null;
   const mandatoryField = await select({ message: mandatory.statement, choices: getChoices(mandatory.answers)});
-  return { fieldName, fieldType, long, mandatoryField}
+
+
+  return new Proxy({ fieldName, fieldType, long, mandatoryField }, getProxy(validator));
 }
 
 /**
@@ -47,10 +50,15 @@ const getField = async () => {
  * }]
  */
 const getFields = async () => {
+  const validator = await select({ message:"Quelle est la librairie de validation de données utilisées ? ", choices: [{ name: "Joi", value: "Joi"}, { name: "express-validator", value: "express-validator"}, { name: "none", value: "none"}]});
+
   const fields = [];
   let keepGoing = true
   while (keepGoing) {
-    fields.push(await getField());
+    const f = await getField(validator);
+    console.log(f.validation)
+    fields.push(f);
+
     keepGoing = await select({
       message: "Avez vous un autre champ à ajouter ?",
       choices: [
