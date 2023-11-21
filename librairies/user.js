@@ -22,7 +22,7 @@ const getChoices = (choices) => {
 
 /**
  * Demande à l'utilisateur la définition des champs
- * @returns Object {
+ * @returns Proxy {
  *  fieldName: string,
  *  fieldType: string,
  *  long: string,
@@ -37,7 +37,13 @@ const getField = async (validator) => {
   const mandatoryField = await select({ message: mandatory.statement, choices: getChoices(mandatory.answers)});
 
 
-  return new Proxy({ fieldName, fieldType, long, mandatoryField }, getProxy(validator));
+  return new Proxy({
+    fieldName,
+    fieldType,
+    long,
+    mandatoryField
+  },
+  getProxy(validator));
 }
 
 /**
@@ -49,9 +55,7 @@ const getField = async (validator) => {
  *  mandatoryField: string
  * }]
  */
-const getFields = async () => {
-  const validator = await select({ message:"Quelle est la librairie de validation de données utilisées ? ", choices: [{ name: "Joi", value: "Joi"}, { name: "express-validator", value: "express-validator"}, { name: "none", value: "none"}]});
-
+const getFields = async (validator) => {
   const fields = [];
   let keepGoing = true
   while (keepGoing) {

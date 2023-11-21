@@ -1,12 +1,12 @@
 const getJoyValidation = (target) => {
   const joyMatching = {
-    VARCHAR: `body("${target.label}${mandatory ? 'notEmpty()': ''}.isLength({ max: ${target.long}})),\n`,
-    TYNIINT: `body("${target.label}${mandatory ? 'notEmpty()': ''}.isNumerical(),\n`,
-    INT: `body("${target.label}${mandatory ? 'notEmpty()': ''}.isNumerical(),\n`,
-    DATE: `body("${target.label}${mandatory ? 'notEmpty()': ''}.isDate(),\n`,
-    DATETIME: `body("${target.label}${mandatory ? 'notEmpty()': ''}.isIso8601().toDate(),\n`,
-    LONGTEXT: `body("${target.label}${mandatory ? 'notEmpty()': ''},\n`,
-    TEXT: `body("${target.label}${mandatory ? 'notEmpty()': ''},\n`,
+    VARCHAR: `${target.fieldName}: Joi.string().max(${target.long})${target.mandatory ? ".required()": ""},\n`,
+    TYNIINT: `${target.fieldName}: Joi.number()${target.mandatory ? ".required()": ""},\n`,
+    INT: `${target.fieldName}: Joi.number()${target.mandatory ? ".required()": ""},\n`,
+    DATE: `${target.fieldName}: Joi.date()${target.mandatory ? ".required()": ""},\n`,
+    DATETIME: `${target.fieldName}: Joi.date().iso()${target.mandatory ? ".required()": ""},\n`,
+    LONGTEXT: `${target.fieldName}: Joi.string()${target.mandatory ? ".required()": ""},\n`,
+    TEXT: `${target.fieldName}: Joi.string()${target.mandatory ? ".required()": ""},\n`,
   }
   return joyMatching[target.type];
 }
@@ -35,9 +35,7 @@ const getProxy = (validator) => {
       }
       return validSystem[validator]()
     }
-    if (prop === "sql") {
-      return "SQL TO CREATE FIELD"
-    }
+
     return Reflect.get(...arguments);
   },
 };

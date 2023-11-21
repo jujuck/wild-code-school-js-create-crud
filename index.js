@@ -20,7 +20,8 @@ const error = console.error;
     log(`${chalk.green('Le champ')} id INT AUTO INCREMENT PRIMARY KEY NOT NULL est automatique`);
 
     // Récupération des champs au format tableau
-    const fields = await getFields();
+    const validator = await select({ message:"Quelle est la librairie de validation de données utilisées ? ", choices: [{ name: "Joi", value: "Joi"}, { name: "express-validator", value: "express-validator"}, { name: "none", value: "none"}]});
+    const fields = await getFields(validator);
 
     // Création et enregistrement du controller
     //const controllers = constructController(table);
