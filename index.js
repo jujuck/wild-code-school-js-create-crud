@@ -65,7 +65,11 @@ const error = console.error;
     // Mise en place de la création de la db et insert de 3 ligne avec faker
     // => redonner l'info des n° des lignes insérés
     // Donner un message de validation à l'utilisateur
-
+    const database = await manageDatabase(table, fields);
+    await setFile(database, `./database.schema.sql`);
+    log(chalk.green(`Le fichier schema.sql a bien été modifié. la création de la table a été ajouté, ainsi que 3 insertions en lorem Ispum.`))
+    log(chalk.yellow(`C'est un fichier type a ajusté en fonction de vos besoins réels`));
+    log(chalk.yellow(`En cas de clé étrangères, veuillez renseigner les champs à la main et réorganiser l'ordre de création des tables`));
 
 
     // Mise en place des tests
