@@ -1,6 +1,6 @@
 const { select, checkbox, confirm, input } = require("@inquirer/prompts");
-const { getYamlInformationFromFile } = require("./files");
-const { getProxy } = require("wild-crud-js/librairies/valid");
+const { getYamlInformationFromFile } = require("wild-crud-js/utils/files");
+const { getProxy } = require("wild-crud-js/utils/proxy");
 
 /**
  * Demande le nom de la table à l'utilisateur

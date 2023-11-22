@@ -1,4 +1,4 @@
-const { getFileContent, getIndexOnFile, getUpdateFile } = require("wild-crud-js/librairies/files");
+const { getFileContent, getIndexOnFile, getUpdateFile } = require("wild-crud-js/utils/files");
 
 const getTemplate = (table, validator, middleWareFolder) => {
   const middle = validator !== "none" ? ` ${table}Validation,` : ""
@@ -16,7 +16,6 @@ router.delete("/${table}s/:id", ${table}Controllers.destroy);
 
 const manageRoutes = async (table, validator, middleWareFolder) => {
   const router = await getFileContent("./src/router.js");
-
   const index = getIndexOnFile("const router = express.Router();", router) + 33;
 
   return getUpdateFile(index, getTemplate(table, validator, middleWareFolder), router);

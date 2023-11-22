@@ -1,8 +1,8 @@
 const chalk = require("chalk");
-const { getTableName, getFields, getValidator } = require("wild-crud-js/librairies/user");
-const { checkIfTableExist, checkMiddlewareFolder } = require("wild-crud-js/librairies/checks");
+const { getTableName, getFields, getValidator } = require("wild-crud-js/utils/user");
+const { checkIfTableExist, checkMiddlewareFolder } = require("wild-crud-js/utils/checks");
 const { constructController, constructManager, manageTables, constructValidation, manageRoutes } = require("wild-crud-js/templates/index");
-const { setFile, setFolder } = require("wild-crud-js/librairies/files");
+const { setFile, setFolder } = require("wild-crud-js/utils/files");
 
 
 const log = console.log;
