@@ -1,5 +1,6 @@
 const { select, checkbox, confirm, input } = require("@inquirer/prompts");
 const { getYamlInformationFromFile } = require("./files");
+const { getProxy } = require("wild-crud-js/librairies/valid");
 
 /**
  * Demande le nom de la table à l'utilisateur
@@ -21,11 +22,12 @@ const getChoices = (choices) => {
 
 /**
  * Demande à l'utilisateur la définition des champs
- * @returns Object {
+ * @returns Proxy {
  *  fieldName: string,
  *  fieldType: string,
  *  long: string,
  *  mandatory: string
+ *  Proxy : validation
  * }
  */
 const getField = async () => {
@@ -34,11 +36,18 @@ const getField = async () => {
   const fieldType = await select({ message: type.statement, choices: getChoices(type.answers)});
   const long = fieldType === "VARCHAR" ?  await input({ message: varchar.statement}) : null;
   const mandatoryField = await select({ message: mandatory.statement, choices: getChoices(mandatory.answers)});
-  return { fieldName, fieldType, long, mandatoryField}
+
+  return {
+    fieldName,
+    fieldType,
+    long,
+    mandatoryField
+  };
 }
 
 /**
  * Demande l'ensemble des champs à l'utililisateur
+ * @param {string} validator module
  * @returns Array[{
  *  fieldName: string,
  *  fieldType: string,
@@ -46,11 +55,14 @@ const getField = async () => {
  *  mandatoryField: string
  * }]
  */
-const getFields = async () => {
+const getFields = async (validator) => {
   const fields = [];
   let keepGoing = true
   while (keepGoing) {
-    fields.push(await getField());
+    let f = await getField();
+    if (validator !== "none") f = new Proxy(f, getProxy(validator))
+    fields.push(f);
+
     keepGoing = await select({
       message: "Avez vous un autre champ à ajouter ?",
       choices: [
@@ -62,7 +74,16 @@ const getFields = async () => {
   return fields
 }
 
+/**
+ * Demande à l'utilisateur le type de librairie utilisé pour la validation de données
+ * @returns string
+ */
+const getValidator = async () => {
+  return await select({ message:"Quelle est la librairie de validation de données utilisées ? ", choices: [{ name: "Joi", value: "joi"}, { name: "express-validator", value: "express-validator"}, { name: "Pas de fichier de validation de donnée", value: "none"}]});
+}
+
 module.exports = {
   getTableName,
-  getFields
+  getFields,
+  getValidator
 };
