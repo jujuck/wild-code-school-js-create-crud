@@ -38,9 +38,20 @@ const setFolder = async (path) => {
   return fs.mkdirSync(path);
 }
 
+const getIndexOnFile = (str, tables) => {
+  return tables.indexOf(str)
+};
+
+
+const getUpdateFile = (index, str, file) => {
+  return file.slice(0, index) + str + file.slice(index)
+}
+
 module.exports = {
   getYamlInformationFromFile,
   getFileContent,
   setFile,
-  setFolder
+  setFolder,
+  getIndexOnFile,
+  getUpdateFile
 };

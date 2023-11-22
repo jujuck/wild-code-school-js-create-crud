@@ -42,7 +42,7 @@ ${fields.map(f => f.validation).join('')}
 const ${table}Validation = (req, res, next) => {
   const { ${listOfField} } = req.body;
 
-  const { error } =${table}Schema.validate(
+  const { error } = ${table}Schema.validate(
     { ${listOfField} },
     { abortEarly: false }
   );

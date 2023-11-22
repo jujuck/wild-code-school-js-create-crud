@@ -24,7 +24,7 @@ const getJoyValidation = (target) => {
  */
 const getExpressValidation = (target) => {
   const expressMatching = {
-    VARCHAR: `  body("${target.fieldName}")${target.mandatory ? '.notEmpty()': ''}.isLength({ max: ${target.long}})),\n`,
+    VARCHAR: `  body("${target.fieldName}")${target.mandatory ? '.notEmpty()': ''}.isLength({ max: ${target.long}}),\n`,
     TINYINT: `  body("${target.fieldName}")${target.mandatory ? '.notEmpty()': ''}.isNumerical(),\n`,
     INT: `  body("${target.fieldName}")${target.mandatory ? '.notEmpty()': ''}.isNumerical(),\n`,
     DATE: `  body("${target.fieldName}")${target.mandatory ? '.notEmpty()': ''}.isDate(),\n`,
