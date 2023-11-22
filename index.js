@@ -1,7 +1,7 @@
 const chalk = require("chalk");
-const { getTableName, getFields } = require("wild-crud-js/librairies/user");
-const { checkIfTableExist } = require("wild-crud-js/librairies/checks");
-const { constructController, constructManager, manageTables } = require("wild-crud-js/templates/index");
+const { getTableName, getFields, getValidator } = require("wild-crud-js/librairies/user");
+const { checkIfTableExist, checkMiddlewareFolder } = require("wild-crud-js/librairies/checks");
+const { constructController, constructManager, manageTables, constructValidation } = require("wild-crud-js/templates/index");
 const { setFile } = require("wild-crud-js/librairies/files");
 
 
@@ -20,7 +20,7 @@ const error = console.error;
     log(`${chalk.green('Le champ')} id INT AUTO INCREMENT PRIMARY KEY NOT NULL est automatique`);
 
     // Récupération des champs au format tableau
-    const validator = await select({ message:"Quelle est la librairie de validation de données utilisées ? ", choices: [{ name: "Joi", value: "Joi"}, { name: "express-validator", value: "express-validator"}, { name: "none", value: "none"}]});
+    const validator = await getValidator();
     const fields = await getFields(validator);
 
     // Création et enregistrement du controller
@@ -39,8 +39,15 @@ const error = console.error;
     // Donner un message de validation à l'utilisateur
 
     // Création du fichiers de validation de données
-    // Besoin de connaitre quelle librairie est utilisée (joy ou express-validator)
+
     // Création ou non d'un dossier middleware
+
+    const validationFile = await constructValidation(validator, fields, table);
+    console.log(validationFile)
+    let middleWareFolder = await checkMiddlewareFolder()
+    if (!middleWareFolder) {
+
+    }
     // Donner un message de validation à l'utilisateur
 
 

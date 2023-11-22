@@ -27,6 +27,7 @@ const getChoices = (choices) => {
  *  fieldType: string,
  *  long: string,
  *  mandatory: string
+ *  Proxy : validation
  * }
  */
 const getField = async (validator) => {
@@ -35,19 +36,23 @@ const getField = async (validator) => {
   const fieldType = await select({ message: type.statement, choices: getChoices(type.answers)});
   const long = fieldType === "VARCHAR" ?  await input({ message: varchar.statement}) : null;
   const mandatoryField = await select({ message: mandatory.statement, choices: getChoices(mandatory.answers)});
+  const handler = getProxy(validator);
 
-
-  return new Proxy({
+  let field = {
     fieldName,
     fieldType,
     long,
     mandatoryField
-  },
-  getProxy(validator));
+  }
+  const proxy = new Proxy(field, handler);
+  console.log("In get Field")
+  console.log(proxy.validation)
+  return proxy;
 }
 
 /**
  * Demande l'ensemble des champs à l'utililisateur
+ * @param {string} validator module
  * @returns Array[{
  *  fieldName: string,
  *  fieldType: string,
@@ -60,7 +65,6 @@ const getFields = async (validator) => {
   let keepGoing = true
   while (keepGoing) {
     const f = await getField(validator);
-    console.log(f.validation)
     fields.push(f);
 
     keepGoing = await select({
@@ -74,7 +78,12 @@ const getFields = async (validator) => {
   return fields
 }
 
+const getValidator = async () => {
+  return await select({ message:"Quelle est la librairie de validation de données utilisées ? ", choices: [{ name: "Joi", value: "joi"}, { name: "express-validator", value: "express-validator"}, { name: "none", value: "none"}]});
+}
+
 module.exports = {
   getTableName,
-  getFields
+  getFields,
+  getValidator
 };

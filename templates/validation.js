@@ -1,26 +1,10 @@
-const getValidation = (target) => {
-  const joyMatching = {
-    VARCHAR: `body("${target.label}${mandatory ? 'notEmpty()': ''}.isLength({ max: ${target.long}})),\n`,
-    TYNIINT: `body("${target.label}${mandatory ? 'notEmpty()': ''}.isNumerical(),\n`,
-    INT: `body("${target.label}${mandatory ? 'notEmpty()': ''}.isNumerical(),\n`,
-    DATE: `body("${target.label}${mandatory ? 'notEmpty()': ''}.isDate(),\n`,
-    DATETIME: `body("${target.label}${mandatory ? 'notEmpty()': ''}.isIso8601().toDate(),\n`,
-    LONGTEXT: `body("${target.label}${mandatory ? 'notEmpty()': ''},\n`,
-    TEXT: `body("${target.label}${mandatory ? 'notEmpty()': ''},\n`,
-  }
-  return joyMatching[target.type];
-}
-
-const constructValidation = (field) => {
+const expressValidation = (fields) => {
   return `const { body, validationResult } = require("express-validator");
-${fields.map(field => getValidation(field))}
-const validateUser = [
 
+const ${table}Validation = [
+${fields.map(field => field.validation).join('')}
   (req, res, next) => {
     const errors = validationResult(req)
-
-
-
     if (!errors.isEmpty()) {
       res.status(422).json({ validationErrors: errors.array() });
     } else {
@@ -29,8 +13,46 @@ const validateUser = [
   },
 ];
 
-module.exports = validateUser;
-`;
+module.exports = ${table}Validation;
+
+`
 };
 
-module.exports = { constructValidation }
+const joyValidation = (fields, table) => {
+  const listOfField = fields.filter(f => f.mandatoryField === "Oui").map(f => f.fieldName).join(', ');
+  return `const Joi = require("joi");
+
+const ${table}Schema = Joi.object({
+${fields.map(f => f.validation).join('')}
+});
+
+const ${table}Validation = (req, res, next) => {
+  const { ${listOfField} } = req.body;
+
+  const { error } =${table}Schema.validate(
+    { ${listOfField} },
+    { abortEarly: false }
+  );
+
+  if (error) {
+    res.status(422).json({ validationErrors: error.details });
+  } else {
+    next();
+  }
+};
+
+module.export = ${table}Validation;
+
+`
+}
+
+const constructValidation = (validator, fields, table) => {
+  const validModule = {
+    "joi": () => joyValidation(fields, table),
+    "express-validator": () => expressValidation(fields, table)
+  }
+  return validModule[validator]()
+  ;
+};
+
+module.exports = constructValidation;
