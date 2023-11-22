@@ -2,7 +2,7 @@ const chalk = require("chalk");
 const { getTableName, getFields, getValidator } = require("wild-crud-js/librairies/user");
 const { checkIfTableExist, checkMiddlewareFolder } = require("wild-crud-js/librairies/checks");
 const { constructController, constructManager, manageTables, constructValidation } = require("wild-crud-js/templates/index");
-const { setFile } = require("wild-crud-js/librairies/files");
+const { setFile, setFolder } = require("wild-crud-js/librairies/files");
 
 
 const log = console.log;
@@ -39,15 +39,16 @@ const error = console.error;
     // Donner un message de validation à l'utilisateur
 
     // Création du fichiers de validation de données
-
-    // Création ou non d'un dossier middleware
-
-    const validationFile = await constructValidation(validator, fields, table);
-    console.log(validationFile)
-    let middleWareFolder = await checkMiddlewareFolder()
-    if (!middleWareFolder) {
-
+    if(validator !== "none") {
+      const validationFile = await constructValidation(validator, fields, table);
+      let middleWareFolder = await checkMiddlewareFolder()
+      if (!middleWareFolder) {
+        middleWareFolder = "middlewares"
+        await setFolder(`./src/${middleWareFolder}`);
+      }
+      await setFile(validationFile, `./src/${middleWareFolder}/${table}Validation.js`);
     }
+    console.log("DONE")
     // Donner un message de validation à l'utilisateur
 
 

@@ -29,8 +29,18 @@ const setFile = async (file, path) => {
   return await fs.writeFileSync(path, file);
 }
 
+/**
+ * Créer un nouveau dossier
+ * @param {string} path
+ * @returns
+ */
+const setFolder = async (path) => {
+  return fs.mkdirSync(path);
+}
+
 module.exports = {
   getYamlInformationFromFile,
   getFileContent,
-  setFile
+  setFile,
+  setFolder
 };
