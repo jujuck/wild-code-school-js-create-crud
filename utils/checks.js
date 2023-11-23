@@ -1,5 +1,5 @@
 const fs = require('fs')
-const { getFileContent } = require("wild-crud-js/librairies/files");
+const { getFileContent } = require("wild-crud-js/utils/files");
 
 const checkIfTableExist = (table) => {
   const content = getFileContent("./database/schema.sql");
