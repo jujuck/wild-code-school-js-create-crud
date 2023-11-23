@@ -1,4 +1,4 @@
-const { getFileContent, getIndexOnFile, getUpdateFile } = require("wild-crud-js/utils/files");
+const { getFileContent, getIndexOnFile, getUpdateFile } = require("wild-js-crud/utils/files");
 
 const manageTables = async (capitalizeTable) => {
   const tables = await getFileContent("./src/tables.js");

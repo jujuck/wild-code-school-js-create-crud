@@ -1,8 +1,10 @@
 const chalk = require("chalk");
-const { getTableName, getFields, getValidator } = require("wild-crud-js/utils/user");
-const { checkIfTableExist, checkMiddlewareFolder } = require("wild-crud-js/utils/checks");
-const { constructController, constructManager, manageTables, constructValidation, manageRoutes, manageDatabase } = require("wild-crud-js/templates/index");
-const { setFile, setFolder } = require("wild-crud-js/utils/files");
+const { execSync } = require('child_process');
+
+const { getTableName, getFields, getValidator } = require("wild-js-crud/utils/user");
+const { checkIfTableExist, checkMiddlewareFolder } = require("wild-js-crud/utils/checks");
+const { constructController, constructManager, manageTables, constructValidation, manageRoutes, manageDatabase } = require("wild-js-crud/templates/index");
+const { setFile, setFolder } = require("wild-js-crud/utils/files");
 
 
 const log = console.log;
@@ -71,7 +73,7 @@ const error = console.error;
     log(chalk.yellow(`C'est un fichier type a ajusté en fonction de vos besoins réels`));
     log(chalk.yellow(`En cas de clé étrangères, veuillez renseigner les champs à la main et réorganiser l'ordre de création des tables`));
 
-
+    await execSync("npm run db:migrate");
     // Mise en place des tests
     // Donner un message de validation à l'utilisateur
 

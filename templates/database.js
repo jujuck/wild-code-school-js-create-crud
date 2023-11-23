@@ -1,4 +1,4 @@
-const { getFileContent, getUpdateFile } = require("wild-crud-js/utils/files");
+const { getFileContent, getUpdateFile } = require("wild-js-crud/utils/files");
 
 const getSchema = (table, fields) => {
   return `

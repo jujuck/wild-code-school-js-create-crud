@@ -1,4 +1,4 @@
-const { getFileContent, getIndexOnFile, getUpdateFile } = require("wild-crud-js/utils/files");
+const { getFileContent, getIndexOnFile, getUpdateFile } = require("wild-js-crud/utils/files");
 
 const getTemplate = (table, validator, middleWareFolder) => {
   const middle = validator !== "none" ? ` ${table}Validation,` : ""
