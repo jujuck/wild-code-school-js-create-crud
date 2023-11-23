@@ -1,7 +1,7 @@
 const chalk = require("chalk");
 const { getTableName, getFields, getValidator } = require("wild-crud-js/utils/user");
 const { checkIfTableExist, checkMiddlewareFolder } = require("wild-crud-js/utils/checks");
-const { constructController, constructManager, manageTables, constructValidation, manageRoutes } = require("wild-crud-js/templates/index");
+const { constructController, constructManager, manageTables, constructValidation, manageRoutes, manageDatabase } = require("wild-crud-js/templates/index");
 const { setFile, setFolder } = require("wild-crud-js/utils/files");
 
 
@@ -31,7 +31,7 @@ const error = console.error;
 
     // Création et enregistrement du manager
     const managers = constructManager(table, fields, capitalizeTable);
-    await setFile(managers, `./src/models/${capitalizeTable}Managers.js`);
+    await setFile(managers, `./src/models/${capitalizeTable}Manager.js`);
     log(chalk.green(`Le fichier ${capitalizeTable}Manager.js a bien été crée dans le dossier /src/models.`));
     log(chalk.yellow(`C'est un fichier type a ajusté en fonction de vos besoins réels`));
 
@@ -56,7 +56,7 @@ const error = console.error;
 
     // Mise à jour des routes
     const routes = await manageRoutes(table, validator, middleWareFolder);
-    await setFile(routes, `./src/routes.js`);
+    await setFile(routes, `./src/router.js`);
     log(chalk.green(`Le fichier router.js a bien été modifié. L'import du controller a été mis en place, ainsi que les routes basic du CRUD.`))
     log(chalk.yellow(`Si vous avez choisi un validateur de données, celui ci a été ajouté dans les routes POST et PUT`));
 
@@ -66,7 +66,7 @@ const error = console.error;
     // => redonner l'info des n° des lignes insérés
     // Donner un message de validation à l'utilisateur
     const database = await manageDatabase(table, fields);
-    await setFile(database, `./database.schema.sql`);
+    await setFile(database, `./database/schema.sql`);
     log(chalk.green(`Le fichier schema.sql a bien été modifié. la création de la table a été ajouté, ainsi que 3 insertions en lorem Ispum.`))
     log(chalk.yellow(`C'est un fichier type a ajusté en fonction de vos besoins réels`));
     log(chalk.yellow(`En cas de clé étrangères, veuillez renseigner les champs à la main et réorganiser l'ordre de création des tables`));

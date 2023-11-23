@@ -7,13 +7,13 @@ const { faker } = require("@faker-js/faker");
  */
 const getJoyValidation = (target) => {
   const joyMatching = {
-    VARCHAR: `  ${target.fieldName}: Joi.string().max(${target.long})${target.mandatory ? ".required()":""},\n`,
-    TINYINT: `  ${target.fieldName}: Joi.number()${target.mandatory === "Oui" ? ".required()": ".isOptionnal()"},\n`,
-    INT: `  ${target.fieldName}: Joi.number()${target.mandatory === "Oui" ? ".required()": ".isOptionnal()"},\n`,
-    DATE: `  ${target.fieldName}: Joi.date()${target.mandatory === "Oui" ? ".required()": ".isOptionnal()"},\n`,
-    DATETIME: `  ${target.fieldName}: Joi.date().iso()${target.mandatory === "Oui" ? ".required()": ".isOptionnal()"},\n`,
-    LONGTEXT: `  ${target.fieldName}: Joi.string()${target.mandatory === "Oui" ? ".required()": ".isOptionnal()"},\n`,
-    TEXT: `  ${target.fieldName}: Joi.string()${target.mandatory === "Oui" ? ".required()": ".isOptionnal()"},\n`,
+    VARCHAR: `  ${target.fieldName}: Joi.string().max(${target.long})${target.mandatoryField ? ".required()":""},\n`,
+    TINYINT: `  ${target.fieldName}: Joi.number()${target.mandatoryField === "Oui" ? ".required()": ".isOptionnal()"},\n`,
+    INT: `  ${target.fieldName}: Joi.number()${target.mandatoryField === "Oui" ? ".required()": ".isOptionnal()"},\n`,
+    DATE: `  ${target.fieldName}: Joi.date()${target.mandatoryField === "Oui" ? ".required()": ".isOptionnal()"},\n`,
+    DATETIME: `  ${target.fieldName}: Joi.date().iso()${target.mandatoryField === "Oui" ? ".required()": ".isOptionnal()"},\n`,
+    LONGTEXT: `  ${target.fieldName}: Joi.string()${target.mandatoryField === "Oui" ? ".required()": ".isOptionnal()"},\n`,
+    TEXT: `  ${target.fieldName}: Joi.string()${target.mandatoryField === "Oui" ? ".required()": ".isOptionnal()"},\n`,
   }
 
   return joyMatching[target.fieldType];
@@ -26,13 +26,13 @@ const getJoyValidation = (target) => {
  */
 const getExpressValidation = (target) => {
   const expressMatching = {
-    VARCHAR: `  body("${target.fieldName}")${target.mandatory === "Oui" ? '.notEmpty()': ''}.isLength({ max: ${target.long}}),\n`,
-    TINYINT: `  body("${target.fieldName}")${target.mandatory === "Oui" ? '.notEmpty()': ''}.isNumerical(),\n`,
-    INT: `  body("${target.fieldName}")${target.mandatory === "Oui" ? '.notEmpty()': ''}.isNumerical(),\n`,
-    DATE: `  body("${target.fieldName}")${target.mandatory === "Oui" ? '.notEmpty()': ''}.isDate(),\n`,
-    DATETIME: `  body("${target.fieldName}")${target.mandatory === "Oui" ? '.notEmpty()': ''}.isIso8601().toDate(),\n`,
-    LONGTEXT: `  body("${target.fieldName}")${target.mandatory === "Oui" ? '.notEmpty()': ''},\n`,
-    TEXT: `  body("${target.fieldName}")${target.mandatory === "Oui" ? '.notEmpty()': ''},\n`,
+    VARCHAR: `  body("${target.fieldName}")${target.mandatoryField === "Oui" ? '.notEmpty()': ''}.isLength({ max: ${target.long}}),\n`,
+    TINYINT: `  body("${target.fieldName}")${target.mandatoryField === "Oui" ? '.notEmpty()': ''}.isNumerical(),\n`,
+    INT: `  body("${target.fieldName}")${target.mandatoryField === "Oui" ? '.notEmpty()': ''}.isNumerical(),\n`,
+    DATE: `  body("${target.fieldName}")${target.mandatoryField === "Oui" ? '.notEmpty()': ''}.isDate(),\n`,
+    DATETIME: `  body("${target.fieldName}")${target.mandatoryField === "Oui" ? '.notEmpty()': ''}.isIso8601().toDate(),\n`,
+    LONGTEXT: `  body("${target.fieldName}")${target.mandatoryField === "Oui" ? '.notEmpty()': ''},\n`,
+    TEXT: `  body("${target.fieldName}")${target.mandatoryField === "Oui" ? '.notEmpty()': ''},\n`,
   }
   return expressMatching[target.fieldType];
 }
@@ -45,13 +45,13 @@ const getExpressValidation = (target) => {
  */
 const getSQLStatement = (field) => {
   const sqlSatement = {
-    VARCHAR: `  ${field.fieldName} VARCHAR(255) ${field.mandatory === "Oui" ? 'NOT NULL' : ''}\n`,
-    TINYINT: `  ${field.fieldName} TINYINT ${field.mandatory === "Oui" ? 'NOT NULL' : ''}\n`,
-    INT: `  ${field.fieldName} INT ${field.mandatory === "Oui" ? 'NOT NULL' : ''}\n`,
-    DATE: `  ${field.fieldName} DATE ${field.mandatory === "Oui" ? 'NOT NULL' : ''}\n`,
-    DATETIME: `  ${field.fieldName} DATETIME ${field.mandatory === "Oui" ? 'NOT NULL' : ''}\n`,
-    LONGTEXT: ` ${field.fieldName} LONGTEXT ${field.mandatory === "Oui" ? 'NOT NULL' : ''}\n`,
-    TEXT: `  ${field.fieldName} TEXT ${field.mandatory === "Oui" ? 'NOT NULL' : ''}\n`,
+    VARCHAR: `${field.fieldName} VARCHAR(255)${field.mandatoryField === "Oui" ? ' NOT NULL' : ''}`,
+    TINYINT: `${field.fieldName} TINYINT${field.mandatoryField === "Oui" ? ' NOT NULL' : ''}`,
+    INT: `${field.fieldName} INT${field.mandatoryField === "Oui" ? ' NOT NULL' : ''}`,
+    DATE: `${field.fieldName} DATE${field.mandatoryField === "Oui" ? ' NOT NULL' : ''}`,
+    DATETIME: `${field.fieldName} DATETIME${field.mandatoryField === "Oui" ? ' NOT NULL' : ''}`,
+    LONGTEXT: ` ${field.fieldName} LONGTEXT${field.mandatoryField === "Oui" ? ' NOT NULL' : ''}`,
+    TEXT: `${field.fieldName} TEXT${field.mandatoryField === "Oui" ? ' NOT NULL' : ''}`,
   }
 
   return sqlSatement[field.fieldType]
