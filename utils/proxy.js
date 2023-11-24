@@ -7,13 +7,13 @@ const { faker } = require("@faker-js/faker");
  */
 const getJoyValidation = (target) => {
   const joyMatching = {
-    VARCHAR: `  ${target.fieldName}: Joi.string().max(${target.long})${target.mandatoryField ? ".presence(option)":".presence('optional')"},\n`,
-    TINYINT: `  ${target.fieldName}: Joi.number()${target.mandatoryField === "Oui" ? ".presence(option)": ".presence('optional')"},\n`,
-    INT: `  ${target.fieldName}: Joi.number()${target.mandatoryField === "Oui" ? ".presence(option)": ".presence('optional')"},\n`,
-    DATE: `  ${target.fieldName}: Joi.date()${target.mandatoryField === "Oui" ? ".presence(option)": ".presence('optional')"},\n`,
-    DATETIME: `  ${target.fieldName}: Joi.date()${target.mandatoryField === "Oui" ? ".presence(option)": ".presence('optional')"},\n`,
-    LONGTEXT: `  ${target.fieldName}: Joi.string()${target.mandatoryField === "Oui" ? ".presence(option)": ".presence('optional')"},\n`,
-    TEXT: `  ${target.fieldName}: Joi.string()${target.mandatoryField === "Oui" ? ".presence(option)": ".presence('optional')"},\n`,
+    VARCHAR: `  ${target.fieldName}: Joi.string().max(${target.long})${target.mandatoryField ? ".presence(option)":".presence('optional')"}`,
+    TINYINT: `  ${target.fieldName}: Joi.number()${target.mandatoryField === "Oui" ? ".presence(option)": ".presence('optional')"}`,
+    INT: `  ${target.fieldName}: Joi.number()${target.mandatoryField === "Oui" ? ".presence(option)": ".presence('optional')"}`,
+    DATE: `  ${target.fieldName}: Joi.date()${target.mandatoryField === "Oui" ? ".presence(option)": ".presence('optional')"}`,
+    DATETIME: `  ${target.fieldName}: Joi.date()${target.mandatoryField === "Oui" ? ".presence(option)": ".presence('optional')"}`,
+    LONGTEXT: `  ${target.fieldName}: Joi.string()${target.mandatoryField === "Oui" ? ".presence(option)": ".presence('optional')"}`,
+    TEXT: `  ${target.fieldName}: Joi.string()${target.mandatoryField === "Oui" ? ".presence(option)": ".presence('optional')"}`,
   }
 
   return joyMatching[target.fieldType];
@@ -26,13 +26,13 @@ const getJoyValidation = (target) => {
  */
 const getExpressValidation = (target) => {
   const expressMatching = {
-    VARCHAR: `  body("${target.fieldName}")${target.mandatoryField === "Oui" ? '.notEmpty()': ''}.isLength({ max: ${target.long}}),\n`,
-    TINYINT: `  body("${target.fieldName}")${target.mandatoryField === "Oui" ? '.notEmpty()': ''}.isNumerical(),\n`,
-    INT: `  body("${target.fieldName}")${target.mandatoryField === "Oui" ? '.notEmpty()': ''}.isNumerical(),\n`,
-    DATE: `  body("${target.fieldName}")${target.mandatoryField === "Oui" ? '.notEmpty()': ''}.isDate(),\n`,
-    DATETIME: `  body("${target.fieldName}")${target.mandatoryField === "Oui" ? '.notEmpty()': ''}.isIso8601().toDate(),\n`,
-    LONGTEXT: `  body("${target.fieldName}")${target.mandatoryField === "Oui" ? '.notEmpty()': ''},\n`,
-    TEXT: `  body("${target.fieldName}")${target.mandatoryField === "Oui" ? '.notEmpty()': ''},\n`,
+    VARCHAR: `  body("${target.fieldName}")${target.mandatoryField === "Oui" ? '.notEmpty()': ''}.isLength({ max: ${target.long}})`,
+    TINYINT: `  body("${target.fieldName}")${target.mandatoryField === "Oui" ? '.notEmpty()': ''}.isNumerical()`,
+    INT: `  body("${target.fieldName}")${target.mandatoryField === "Oui" ? '.notEmpty()': ''}.isNumerical()`,
+    DATE: `  body("${target.fieldName}")${target.mandatoryField === "Oui" ? '.notEmpty()': ''}.isDate()`,
+    DATETIME: `  body("${target.fieldName}")${target.mandatoryField === "Oui" ? '.notEmpty()': ''}.isIso8601().toDate()`,
+    LONGTEXT: `  body("${target.fieldName}")${target.mandatoryField === "Oui" ? '.notEmpty()': ''}`,
+    TEXT: `  body("${target.fieldName}")${target.mandatoryField === "Oui" ? '.notEmpty()': ''}`,
   }
   return expressMatching[target.fieldType];
 }

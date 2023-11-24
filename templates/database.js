@@ -22,7 +22,7 @@ const getSchema = (table, fields, insertion) => {
   return `
 create table ${table} (
   id int unsigned primary key auto_increment not null,
-  ${fields.map(f => f.sql).join(',\n')}
+  ${fields.map(f => f.sql).join(',\n  ')}
 );
 
 

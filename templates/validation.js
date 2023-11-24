@@ -9,7 +9,7 @@ const expressValidation = (fields, table) => {
   return `const { body, validationResult } = require("express-validator");
 
 const ${table}Validation = [
-${fields.map(field => field.validation).join('')}
+${fields.map(field => field.validation).join(',\n  ')}
   (req, res, next) => {
     const errors = validationResult(req)
     if (!errors.isEmpty()) {
@@ -37,7 +37,7 @@ const joyValidation = (fields, table) => {
 const getSchema = (req) => {
   const option = req.method === "POST" ? "required" : "optional";
   return Joi.object({
-  ${fields.map(f => f.validation).join('')}
+  ${fields.map(f => f.validation).join(',\n  ')}
   });
 };
 
