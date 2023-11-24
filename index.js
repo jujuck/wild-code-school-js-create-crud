@@ -1,7 +1,7 @@
 const chalk = require("chalk");
 const { execSync } = require('child_process');
 
-const { getTableName, getFields, getValidator } = require("wild-js-crud/utils/user");
+const { getTableName, getFields, getValidator, getInsertData } = require("wild-js-crud/utils/user");
 const { checkIfTableExist, checkMiddlewareFolder } = require("wild-js-crud/utils/checks");
 const { constructController, constructManager, manageTables, constructValidation, manageRoutes, manageDatabase } = require("wild-js-crud/templates/index");
 const { setFile, setFolder } = require("wild-js-crud/utils/files");
@@ -67,7 +67,8 @@ const error = console.error;
     // Mise en place de la création de la db et insert de 3 ligne avec faker
     // => redonner l'info des n° des lignes insérés
     // Donner un message de validation à l'utilisateur
-    const database = await manageDatabase(table, fields);
+    const insertion = await getInsertData();
+    const database = await manageDatabase(table, fields, insertion);
     await setFile(database, `./database/schema.sql`);
     log(chalk.green(`Le fichier schema.sql a bien été modifié. la création de la table a été ajouté, ainsi que 3 insertions en lorem Ispum.`))
     log(chalk.yellow(`C'est un fichier type a ajusté en fonction de vos besoins réels`));

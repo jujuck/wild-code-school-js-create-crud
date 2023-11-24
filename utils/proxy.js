@@ -54,7 +54,7 @@ const getSQLStatement = (field) => {
     TEXT: `${field.fieldName} TEXT${field.mandatoryField === "Oui" ? ' NOT NULL' : ''}`,
   }
 
-  return sqlSatement[field.fieldType]
+  return sqlSatement[field.fieldType];
 };
 
 /**
@@ -63,17 +63,17 @@ const getSQLStatement = (field) => {
  * @returns function
  */
 const getFakeData = (field) => {
-  const faker = {
-    VARCHAR: () => faker.lorem.words({min: 1, max3}),
-    TINYINT: () =>faker.number.int({min: 0, max: 2}),
+  const fakerObj = {
+    VARCHAR: () => `"${faker.lorem.words({ min: 1, max: 3})}"`,
+    TINYINT: () => faker.number.int({ min: 0, max: 2 }),
     INT: () => faker.number.int(1000),
-    DATE: () => faker.date.anytime().split('T').shift(),
-    DATETIME: () => faker.date.anytime(),
-    LONGTEXT: () => faker.lorem.paragraphs(3),
-    TEXT: () => faker.lorem.paragraph(),
+    DATE: () => `"${faker.date.anytime().split('T').shift()}"`,
+    DATETIME: () => `"${faker.date.anytime()}"`,
+    LONGTEXT: () => `"${faker.lorem.paragraphs(3)}"`,
+    TEXT: () => `"${faker.lorem.paragraph()}"`,
   }
 
-  return faker[field.fieldType];
+  return fakerObj[field.fieldType];
 }
 
 /**
@@ -89,9 +89,9 @@ const getProxy = (validator) => {
           joi: () => getJoyValidation(target),
           "express-validator":() => getExpressValidation(target),
           none: () => "No field validation"
-        }
+        };
 
-        return validSystem[validator]()
+        return validSystem[validator]();
       }
 
       if (prop == 'sql') {

@@ -82,8 +82,13 @@ const getValidator = async () => {
   return await select({ message:"Quelle est la librairie de validation de données utilisées ? ", choices: [{ name: "Joi", value: "joi"}, { name: "express-validator", value: "express-validator"}, { name: "Pas de fichier de validation de donnée", value: "none"}]});
 }
 
+const getInsertData = async () => {
+  return await input({ message:"Combien de lignes de fausses données voulez vous insérer (0 pour pas d'insertion" });
+}
+
 module.exports = {
   getTableName,
   getFields,
-  getValidator
+  getValidator,
+  getInsertData
 };
