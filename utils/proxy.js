@@ -65,10 +65,10 @@ const getSQLStatement = (field) => {
 const getFakeData = (field) => {
   const fakerObj = {
     VARCHAR: () => `"${faker.lorem.words({ min: 1, max: 3})}"`,
-    TINYINT: () => faker.number.int({ min: 0, max: 2 }),
+    TINYINT: () => faker.datatype.boolean() ? 0 : 1,
     INT: () => faker.number.int(1000),
-    DATE: () => `"${faker.date.anytime().split('T').shift()}"`,
-    DATETIME: () => `"${faker.date.anytime()}"`,
+    DATE: () => `"${faker.date.anytime().toISOString().split('T').shift()}"`,
+    DATETIME: () => `"${faker.date.anytime().toISOString().split('T').shift()} 00:00:00"`,
     LONGTEXT: () => `"${faker.lorem.paragraphs(3)}"`,
     TEXT: () => `"${faker.lorem.paragraph()}"`,
   }

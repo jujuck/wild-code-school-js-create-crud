@@ -7,7 +7,6 @@ type:
   answers:
     - TINYINT
     - INT
-    - FLOAT
     - DATE
     - DATETIME
     - VARCHAR
