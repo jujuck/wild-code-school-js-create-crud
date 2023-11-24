@@ -32,18 +32,22 @@ module.exports = ${table}Validation;
  * @returns
  */
 const joyValidation = (fields, table) => {
-  const listOfField = fields.filter(f => f.mandatoryField === "Oui").map(f => f.fieldName).join(', ');
   return `const Joi = require("joi");
 
-const ${table}Schema = Joi.object({
-${fields.map(f => f.validation).join('')}
-});
+const getSchema = (req) => {
+  const option = req.method === "POST" ? "required" : "optional";
+  return Joi.object({
+  ${fields.map(f => f.validation).join('')}
+  });
+};
 
 const ${table}Validation = (req, res, next) => {
-  const { ${listOfField} } = req.body;
+  const schema = getSchema(req);
 
-  const { error } = ${table}Schema.validate(
-    { ${listOfField} },
+  const { error } = schema.validate(
+    {
+      ...req.body,
+    },
     { abortEarly: false }
   );
 
@@ -54,7 +58,7 @@ const ${table}Validation = (req, res, next) => {
   }
 };
 
-module.export = ${table}Validation;
+module.exports = ${table}Validation;
 
 `
 }

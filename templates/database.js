@@ -13,7 +13,7 @@ const getInsertion = (insertion, fields, table) => {
       .map(el => {
         return getOneInsert(fields);
       })
-      .join(',\n')
+      .join(',\n  ')
     };`
 }
 

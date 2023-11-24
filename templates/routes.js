@@ -8,7 +8,7 @@ ${validator !== "none" ? `// const ${table}Validation = require("./${middleWareF
 router.get("/${table}s", ${table}Controllers.browse);
 router.get("/${table}s/:id", ${table}Controllers.read);
 // router.post("/${table}s",${middle} ${table}Controllers.add);
-// router.edit("/${table}s/:id",${middle} ${table}Controllers.edit);
+// router.put("/${table}s/:id",${middle} ${table}Controllers.edit);
 // router.delete("/${table}s/:id", ${table}Controllers.destroy);
 
 `;

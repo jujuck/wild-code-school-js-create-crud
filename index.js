@@ -75,11 +75,10 @@ const error = console.error;
     log(chalk.yellow(`En cas de clé étrangères, veuillez renseigner les champs à la main et réorganiser l'ordre de création des tables`));
 
     await execSync("npm run db:migrate");
+
+
     // Mise en place des tests
     // Donner un message de validation à l'utilisateur
-
-
-
 
   } else {
     error(chalk.red(`La table -- ${table} -- semble déjà exister. Verifier puis recommencer !`))

@@ -7,13 +7,13 @@ const { faker } = require("@faker-js/faker");
  */
 const getJoyValidation = (target) => {
   const joyMatching = {
-    VARCHAR: `  ${target.fieldName}: Joi.string().max(${target.long})${target.mandatoryField ? ".required()":""},\n`,
-    TINYINT: `  ${target.fieldName}: Joi.number()${target.mandatoryField === "Oui" ? ".required()": ".isOptionnal()"},\n`,
-    INT: `  ${target.fieldName}: Joi.number()${target.mandatoryField === "Oui" ? ".required()": ".isOptionnal()"},\n`,
-    DATE: `  ${target.fieldName}: Joi.date()${target.mandatoryField === "Oui" ? ".required()": ".isOptionnal()"},\n`,
-    DATETIME: `  ${target.fieldName}: Joi.date().iso()${target.mandatoryField === "Oui" ? ".required()": ".isOptionnal()"},\n`,
-    LONGTEXT: `  ${target.fieldName}: Joi.string()${target.mandatoryField === "Oui" ? ".required()": ".isOptionnal()"},\n`,
-    TEXT: `  ${target.fieldName}: Joi.string()${target.mandatoryField === "Oui" ? ".required()": ".isOptionnal()"},\n`,
+    VARCHAR: `  ${target.fieldName}: Joi.string().max(${target.long})${target.mandatoryField ? ".presence(option)":".presence('optional')"},\n`,
+    TINYINT: `  ${target.fieldName}: Joi.number()${target.mandatoryField === "Oui" ? ".presence(option)": ".presence('optional')"},\n`,
+    INT: `  ${target.fieldName}: Joi.number()${target.mandatoryField === "Oui" ? ".presence(option)": ".presence('optional')"},\n`,
+    DATE: `  ${target.fieldName}: Joi.date()${target.mandatoryField === "Oui" ? ".presence(option)": ".presence('optional')"},\n`,
+    DATETIME: `  ${target.fieldName}: Joi.date()${target.mandatoryField === "Oui" ? ".presence(option)": ".presence('optional')"},\n`,
+    LONGTEXT: `  ${target.fieldName}: Joi.string()${target.mandatoryField === "Oui" ? ".presence(option)": ".presence('optional')"},\n`,
+    TEXT: `  ${target.fieldName}: Joi.string()${target.mandatoryField === "Oui" ? ".presence(option)": ".presence('optional')"},\n`,
   }
 
   return joyMatching[target.fieldType];
@@ -50,7 +50,7 @@ const getSQLStatement = (field) => {
     INT: `${field.fieldName} INT${field.mandatoryField === "Oui" ? ' NOT NULL' : ''}`,
     DATE: `${field.fieldName} DATE${field.mandatoryField === "Oui" ? ' NOT NULL' : ''}`,
     DATETIME: `${field.fieldName} DATETIME${field.mandatoryField === "Oui" ? ' NOT NULL' : ''}`,
-    LONGTEXT: ` ${field.fieldName} LONGTEXT${field.mandatoryField === "Oui" ? ' NOT NULL' : ''}`,
+    LONGTEXT: `${field.fieldName} LONGTEXT${field.mandatoryField === "Oui" ? ' NOT NULL' : ''}`,
     TEXT: `${field.fieldName} TEXT${field.mandatoryField === "Oui" ? ' NOT NULL' : ''}`,
   }
 
