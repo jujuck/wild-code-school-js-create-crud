@@ -29,5 +29,8 @@
     "@inquirer/prompts": "^3.2.0",
     "chalk": "4.0.0",
     "yaml": "^2.3.3"
+  },
+  "devDependencies": {
+    "mustache": "^4.2.0"
   }
 }
