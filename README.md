@@ -1,8 +1,15 @@
 ## Crud Maker for the Wild Code School pedagogical JS fullstack template
 
-Warning : this package is made to integrate the Wild Code School JS Template, that include a Frontend Folder with vite React and a backend folder, working with express. (https://github.com/WildCodeSchool/js-template-fullstack);
+Warning : this package is made to integrate the Wild Code School JS Template, which includes a frontend folder with vite React, and a backend folder with express. (https://github.com/WildCodeSchool/js-template-fullstack).
 
-To integrate it to the template, run `npm install wild-js-crud` in your backend folder. Then, add the `"crud:maker": "node ./node_modules/wild-js-crud/index.js"` in the script of the `package.json` on your backend Folder;
+To integrate it to the template, install in your backend folder:
+
+```bash
+cd backend
+npm install --save-dev  wild-js-crud
+```
+
+Then, add the `"crud:maker": "node ./node_modules/wild-js-crud/index.js"` in the script of the `package.json` on your backend Folder.
 
 ### USer input
 
@@ -30,11 +37,11 @@ To integrate it to the template, run `npm install wild-js-crud` in your backend 
 
 ### Version
 
-1.1.0 : Launch in Beta mode for testing;
-1.1.1 : add the insert of the data in the `schema.sql` with the faker libriairy ('https://fakerjs.dev/api/');
-1.1.2 : Correction and testing on all available type of data for the automatic insertion
-1.1.3 : Update of the joi validation file to integrate optional or required field
-1.1.4 : Update for Eslint
+- 1.1.0 : Launch in Beta mode for testing
+- 1.1.1 : add the insert of the data in the `schema.sql` with the faker libriairy ('https://fakerjs.dev/api/')
+- 1.1.2 : Correction and testing on all available type of data for the automatic insertion
+- 1.1.3 : Update of the joi validation file to integrate optional or required field
+- 1.1.4 : Update for Eslint
 
 ### BackLog
 
