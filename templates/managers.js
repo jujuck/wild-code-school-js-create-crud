@@ -1,5 +1,8 @@
-const constructManager = (table, fields, capitalizeTable) => {
+const { toCapitalize } = require("wild-js-crud/utils/globals");
+
+const constructManager = (table, fields, ) => {
   const listOfFields = fields.map(field => field.fieldName);
+  const capitalizeTable = toCapitalize(table);
 
   return `const AbstractManager = require("./AbstractManager");
 

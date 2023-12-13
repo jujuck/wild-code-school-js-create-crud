@@ -1,8 +1,9 @@
 const { getFileContent, getIndexOnFile, getUpdateFile } = require("wild-js-crud/utils/files");
+const { toCapitalize } = require("wild-js-crud/utils/globals")
 
-const manageTables = async (capitalizeTable) => {
+const manageTables = async (table) => {
   const tables = await getFileContent("./src/tables.js");
-  const managerName = `${capitalizeTable}Manager`
+  const managerName = `${toCapitalize(table)}Manager`
 
   const startIndex = getIndexOnFile("const managers = [", tables);
   const endIndex = startIndex + "const managers = [".length;

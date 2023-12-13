@@ -4,6 +4,7 @@ const manageTables = require("wild-js-crud/templates/tables");
 const constructValidation = require("wild-js-crud/templates/validation");
 const manageRoutes = require("wild-js-crud/templates/routes");
 const manageDatabase = require("wild-js-crud/templates/database");
+const manageFakeData = require("wild-js-crud/templates/seed")
 
 module.exports = {
   constructController,
@@ -11,5 +12,6 @@ module.exports = {
   manageTables,
   constructValidation,
   manageRoutes,
-  manageDatabase
+  manageDatabase,
+  manageFakeData
 }

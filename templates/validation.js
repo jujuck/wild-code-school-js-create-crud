@@ -1,15 +1,16 @@
+const { toCapitalize } = require("wild-js-crud/utils/globals");
 
 /**
  * Mise en place du template pour la validation de données avec express-validation
  * @param {object} fields
- * @param {string} table
+ * @param {string} capitalizeTable
  * @returns string
  */
-const expressValidation = (fields, table) => {
+const expressValidation = (fields, capitalizeTable) => {
   return `const { body, validationResult } = require("express-validator");
 
-const ${table}Validation = [
-${fields.map(field => field.validation).join(',\n  ')}
+const validate${capitalizeTable}Validation = [
+${fields.map(field => field.validation).join('')}
   (req, res, next) => {
     const errors = validationResult(req)
     if (!errors.isEmpty()) {
@@ -20,7 +21,7 @@ ${fields.map(field => field.validation).join(',\n  ')}
   },
 ];
 
-module.exports = ${table}Validation;
+module.exports = validate${capitalizeTable};
 
 `
 };
@@ -28,21 +29,21 @@ module.exports = ${table}Validation;
 /**
  * Mise en place du template pour la validation de données avec joy
  * @param {*} fields
- * @param {*} table
+ * @param {*} capitalizeTable
  * @returns
  */
-const joyValidation = (fields, table) => {
+const joyValidation = (fields, capitalizeTable) => {
   return `const Joi = require("joi");
 
-const getSchema = (req) => {
-  const option = req.method === "POST" ? "required" : "optional";
+const get${capitalizeTable}Schema = () => {
   return Joi.object({
-  ${fields.map(f => f.validation).join(',\n  ')}
+    id: Joi.number().presence("optional"),
+  ${fields.map(f => f.validation).join(' ')}
   });
 };
 
-const ${table}Validation = (req, res, next) => {
-  const schema = getSchema(req);
+const validate${capitalizeTable} = (req, res, next) => {
+  const schema = get${capitalizeTable}Schema();
 
   const { error } = schema.validate(
     {
@@ -58,7 +59,7 @@ const ${table}Validation = (req, res, next) => {
   }
 };
 
-module.exports = ${table}Validation;
+module.exports = validate${capitalizeTable};
 
 `
 }
@@ -71,12 +72,12 @@ module.exports = ${table}Validation;
  * @returns string
  */
 const constructValidation = (validator, fields, table) => {
+  const capitalizeTable = toCapitalize(table);
   const validModule = {
-    "joi": () => joyValidation(fields, table),
-    "express-validator": () => expressValidation(fields, table)
-  }
-  return validModule[validator]()
-  ;
+    "joi": () => joyValidation(fields, capitalizeTable),
+    "express-validator": () => expressValidation(fields, capitalizeTable)// Non tester, donc non implémenter en choix user
+  };
+  return validModule[validator]();
 };
 
 module.exports = constructValidation;

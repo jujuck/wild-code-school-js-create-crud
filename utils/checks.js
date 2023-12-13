@@ -6,12 +6,12 @@ const checkIfTableExist = (table) => {
   return !content.toLowerCase().includes(`create table ${table} (`);
 };
 
-const checkMiddlewareFolder = async () => {
+const checkValidatorsFolder = async () => {
   const folders = await fs.readdirSync("./src");
-  return folders.find(dir => dir.toLowerCase().includes("middle"));
+  return folders.find(dir => dir.toLowerCase().includes("valid"));
 }
 
 module.exports = {
   checkIfTableExist,
-  checkMiddlewareFolder
+  checkValidatorsFolder
 };
