@@ -69,7 +69,7 @@ const error = console.error;
     await setFile(database, `./database/schema.sql`);
     log(chalk.green(`Le fichier schema.sql a bien été modifié. la création de la table a été ajouté, ainsi que 3 insertions en lorem Ispum.`))
     log(chalk.yellow(`C'est un fichier type a ajusté en fonction de vos besoins réels`));
-    log(chalk.yellow(`En cas de clé étrangères, veuillez renseigner les champs à la main et réorganiser l'ordre de création des tables`));
+    log(chalk.yellow(`En cas de clés étrangères, veuillez renseigner les champs à la main et réorganiser l'ordre de création des tables`));
 
     await execSync("npm run db:migrate");
 
@@ -82,6 +82,6 @@ const error = console.error;
     }
 
   } else {
-    error(chalk.red(`La table -- ${table} -- semble déjà exister. Vérifier puis recommencer !`))
+    error(chalk.red(`La table -- ${table} -- semble déjà existée. Vérifier puis recommencer !`))
   }
 })();

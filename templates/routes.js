@@ -10,14 +10,14 @@ const { toCapitalize } = require("wild-js-crud/utils/globals");
  */
 const getTemplate = (table, validator, middleWareFolder) => {
   const capitalizeTable = toCapitalize(table)
-  const middle = validator !== "none" ? ` validate${capitalizeTable},` : ""
+  const middle = validator !== "none" ? `validate${capitalizeTable}` : ""
   return `
 const ${table}Controllers = require("./controllers/${table}Controllers");
 ${validator !== "none" ? `// const ${middle} = require("./${middleWareFolder}/${middle}");\n` : ""}
 router.get("/${table}s", ${table}Controllers.browse);
 router.get("/${table}s/:id", ${table}Controllers.read);
-// router.post("/${table}s",${middle} ${table}Controllers.add);
-// router.put("/${table}s/:id",${middle} ${table}Controllers.edit);
+// router.post("/${table}s", ${middle + ', '}${table}Controllers.add);
+// router.put("/${table}s/:id", ${middle + ', '}${table}Controllers.edit);
 // router.delete("/${table}s/:id", ${table}Controllers.destroy);
 
 `;

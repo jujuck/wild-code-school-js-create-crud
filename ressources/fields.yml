@@ -9,15 +9,14 @@ type:
     - INT
     - DATE
     - DATETIME
+    - TIMESTAMP
     - VARCHAR
     - TEXT
     - LONGTEXT
 varchar:
-  statement:
-    Nombre de caractères ?
+  statement: Nombre de caractères ?
 mandatory:
-  statement:
-    Votre champ est il obligatoire ?
+  statement: Votre champ est il obligatoire ?
   answers:
     - Oui
     - Non

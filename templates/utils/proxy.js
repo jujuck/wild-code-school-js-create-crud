@@ -1,5 +1,3 @@
-const { faker } = require("@faker-js/faker");
-
 /**
  * Fonction de matching entre le type sql et la validation de data avec joy
  * @param {object} target
@@ -14,6 +12,7 @@ const getJoyValidation = (target) => {
     DATETIME: `  ${target.fieldName}: Joi.date()${target.mandatoryField === "Oui" ? ".presence('required')": ".presence('optional')"},\n`,
     LONGTEXT: `  ${target.fieldName}: Joi.string()${target.mandatoryField === "Oui" ? ".presence('required')": ".presence('optional')"},\n`,
     TEXT: `  ${target.fieldName}: Joi.string()${target.mandatoryField === "Oui" ? ".presence('required')": ".presence('optional')"},\n`,
+    TIMESTAMP: `  ${target.fieldName}: Joi.date()${target.mandatoryField === "Oui" ? ".presence('required')": ".presence('optional')"},\n`,
   }
 
   return joyMatching[target.fieldType];
@@ -33,6 +32,7 @@ const getExpressValidation = (target) => {
     DATETIME: `  body("${target.fieldName}")${target.mandatoryField === "Oui" ? '.notEmpty()': ''}.isIso8601().toDate(),\n`,
     LONGTEXT: `  body("${target.fieldName}")${target.mandatoryField === "Oui" ? '.notEmpty()': ''},\n`,
     TEXT: `  body("${target.fieldName}")${target.mandatoryField === "Oui" ? '.notEmpty()': ''},\n`,
+    TIMESTAMP: `  body("${target.fieldName}")${target.mandatoryField === "Oui" ? '.notEmpty()': ''}.isDate(),\n`,
   }
   return expressMatching[target.fieldType];
 }
@@ -52,6 +52,7 @@ const getSQLStatement = (field) => {
     DATETIME: `${field.fieldName} DATETIME${field.mandatoryField === "Oui" ? ' NOT NULL' : ''}`,
     LONGTEXT: `${field.fieldName} LONGTEXT${field.mandatoryField === "Oui" ? ' NOT NULL' : ''}`,
     TEXT: `${field.fieldName} TEXT${field.mandatoryField === "Oui" ? ' NOT NULL' : ''}`,
+    TIMESTAMP: `${field.fieldName} TIMESTAMP${field.mandatoryField === "Oui" ? ' NOT NULL' : ''}`,
   }
 
   return sqlSatement[field.fieldType];
@@ -71,6 +72,7 @@ const getFakeData = (field) => {
     DATETIME: "faker.date.anytime().toISOString().split('T').shift() + '00:00:00'",
     LONGTEXT: "faker.lorem.paragraphs(3).split('\\n').join(' ')",
     TEXT: "faker.lorem.paragraph()",
+    TIMESTAMP: "faker.date.anytime()",
   }
 
   return fakerObj[field.fieldType];
