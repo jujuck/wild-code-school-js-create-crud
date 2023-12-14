@@ -32,9 +32,10 @@ To integrate it to the template, run `npm install wild-js-crud` in your backend 
 
 1.1.0 : Launch in Beta mode for testing;
 1.1.1 : add the insert of the data in the `schema.sql` with the faker libriairy ('https://fakerjs.dev/api/');
-1.1.2 : Correction and testing on all available type of data for the automatic insertion
+1.1.2 : Correcting and testing on all available type of data for the automatic insertion
 1.1.3 : Update of the joi validation file to integrate optional or required field
 1.1.4 : Update for Eslint
+1.1.5 : Update on syntax and user confirmation, Add the timsestamp format
 
 ### BackLog
 
