@@ -22,7 +22,7 @@ const {
   manageFakeData,
 } = require("wild-js-crud/templates/index");
 const { setFile, setFolder } = require("wild-js-crud/utils/files");
-const { toCapitalize } = require("wild-js-crud/utils/globals");
+const { toCapitalize, setBreak } = require("wild-js-crud/utils/globals");
 
 const log = console.log;
 const error = console.error;
@@ -92,12 +92,12 @@ const createManager = async (table, fields) => {
       `C'est un fichier type a ajusté en fonction de vos besoins réels. \n`
     )
   );
-  updateTables(table);
+  await updateTables(table);
 };
 
 const createValidator = async (validator, fields, table) => {
   const validationFile = await constructValidation(validator, fields, table);
-  const validatorsFolder = await checkValidatorsFolder();
+  let validatorsFolder = await checkValidatorsFolder();
   if (!validatorsFolder) {
     validatorsFolder = "validators";
     await setFolder(`./src/${validatorsFolder}`);
@@ -174,27 +174,32 @@ const updateSeed = async (fields, table) => {
     )
   );
   const fields = await getFields(validator);
+  await setBreak();
 
-  if (getGo("Voulez vous mettre en place le controller ?")) {
-    createController(table);
+  if (await getGo("Voulez vous mettre en place le controller ?")) {
+    await createController(table);
+    await setBreak();
   }
 
-  if (getGo("Voulez vous mettre en place le manager ?")) {
-    createManager(table, fields);
+  if (await getGo("Voulez vous mettre en place le manager ?")) {
+    await createManager(table, fields);
+    await setBreak();
   }
 
   let validatorsFolder = "";
   if (
     validator !== "none" &&
-    getGo("Voulez vous mettre en place le fichier de validation")
+    await getGo("Voulez vous mettre en place le fichier de validation")
   ) {
-    validatorsFolder = createValidator(validator, fields, table);
+    validatorsFolder = await createValidator(validator, fields, table);
+    await setBreak();
   } else {
     validator = "none";
   }
 
-  if (getGo("Voulez vous mettre à jour le fichier route.js")) {
-    updateRoute(table, validator, validatorsFolder);
+  if (await getGo("Voulez vous mettre à jour le fichier route.js")) {
+    await updateRoute(table, validator, validatorsFolder);
+    await setBreak();
   }
 
   if (!isTable) {
@@ -205,14 +210,15 @@ const updateSeed = async (fields, table) => {
     );
   }
   if (
-    getGo(
+    await getGo(
       `Voulez vous ${isTable ? "" : "re"}génerer le script sql de création ?`
     )
   ) {
-    createTable();
+    await createTable(table, fields);
+    await setBreak();
   }
 
-  if (getGo("Voulez vous ajouter de fausses données à votre table")) {
-    updateSeed(fields, table);
+  if (await getGo("Voulez vous ajouter de fausses données à votre table")) {
+    await updateSeed(fields, table);
   }
 })();
