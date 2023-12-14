@@ -46,6 +46,7 @@ const getInsertion = (insertion, fields, table) => {
 
     // Wait for all the insertion queries to complete
     await Promise.all(queries${capitalizeTable});
+
 `;
 };
 

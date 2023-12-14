@@ -86,9 +86,14 @@ const getInsertData = async () => {
   return await input({ message:"Combien de lignes de fausses données voulez vous insérer (0 pour pas d'insertion) ? " });
 }
 
+const getGo = async (msg) => {
+  return await select({ message: msg, choices: [{ name: "Oui", value: true}, { name: "Non", value: false}]});
+}
+
 module.exports = {
   getTableName,
   getFields,
   getValidator,
-  getInsertData
+  getInsertData,
+  getGo
 };
