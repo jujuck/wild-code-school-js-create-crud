@@ -37,6 +37,7 @@ To integrate it to the template, run `npm install wild-js-crud` in your backend 
 1.1.4 : Update for Eslint
 1.1.5 : Update on syntax and user confirmation, Add the timsestamp format
 1.2.0 : Update on UI and add confirmation steps for each actions
+1.2.1 : Update repo name
 
 ### BackLog
 
