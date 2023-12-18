@@ -1,10 +1,11 @@
 {
   "name": "wild-js-crud",
-  "version": "1.2.1",
-  "description": "A package adapted to the Wild Code School JS Template, ready to create all Crud File from user prompt (Controller, model, data validation and test",
+  "version": "1.2.2",
+  "description": "A package adapted to the Wild Code School JS Template, ready to create all Crud Files from user prompt (Controller, model, data validation )",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "make:crud": "npm exec"
   },
   "repository": {
     "type": "git",
@@ -29,5 +30,8 @@
     "@inquirer/prompts": "^3.2.0",
     "chalk": "4.0.0",
     "yaml": "^2.3.3"
+  },
+  "bin": {
+    "make:crud": "./index.js"
   }
 }

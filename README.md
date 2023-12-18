@@ -4,14 +4,14 @@ Warning : this package is made to integrate the Wild Code School JS Template, th
 
 To integrate it to the template, run `npm install wild-js-crud` in your backend folder. Then, add the `"crud:maker": "node ./node_modules/wild-js-crud/index.js"` in the script of the `package.json` on your backend Folder;
 
-### USer input
+### User input
 
 - Table name, check if already exists
 - Field:
   - name
   - type
   - not null
-- validation system (Joy / Express-validation / none)
+- validation system (Joy / none)
 - Number of fake row insert in the database
 
 ### Automatic file works
@@ -19,9 +19,10 @@ To integrate it to the template, run `npm install wild-js-crud` in your backend 
 - Create automatically the controller file;
 - Create automatically the manager file;
 - Update your route (`router.js`);
-- Update your table (`tables.js`)
-- Create a middleware to check the data on the POST and PUT route based on user choice (Joy or Express-validation packages)
-- Update the `schema.sql` (Migration), creating the table and inserting data if needed (Option);
+- Update your table (`tables.js`);
+- Create a middleware to check the data on the POST and PUT route based on user choice (Joy or Express-validation packages);
+- Update the `schema.sql` (Migration), creating the table;
+- Update the `seed.js` (Migration), creating the fake data and inserting it if needed (Option);
 
 ### Warning
 
@@ -30,17 +31,17 @@ To integrate it to the template, run `npm install wild-js-crud` in your backend 
 
 ### Version
 
-1.1.0 : Launch in Beta mode for testing;
-1.1.1 : add the insert of the data in the `schema.sql` with the faker libriairy ('https://fakerjs.dev/api/');
-1.1.2 : Correcting and testing on all available type of data for the automatic insertion
-1.1.3 : Update of the joi validation file to integrate optional or required field
-1.1.4 : Update for Eslint
-1.1.5 : Update on syntax and user confirmation, Add the timsestamp format
-1.2.0 : Update on UI and add confirmation steps for each actions
-1.2.1 : Update repo name
+- 1.1.0 : Launch in Beta mode for testing;
+- 1.1.1 : add the insert of the data in the `schema.sql` with the faker libriairy ('https://fakerjs.dev/api/');
+- 1.1.2 : Correcting and testing on all available type of data for the automatic insertion
+- 1.1.3 : Update of the joi validation file to integrate optional or required field
+- 1.1.4 : Update for Eslint
+- 1.1.5 : Update on syntax and user confirmation, Add the timsestamp format
+- 1.2.0 : Update on UI and add confirmation steps for each actions
+- 1.2.1 : Update repo name
+- 1.2.2 : Update path to run it
 
 ### BackLog
 
 - Adding automatic testing file for all the route
 - Adding Error management and rollback
-- Adding UX on the terminal, for user information

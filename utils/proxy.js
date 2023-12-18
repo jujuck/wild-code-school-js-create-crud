@@ -12,7 +12,7 @@ const getJoyValidation = (target) => {
     DATETIME: `  ${target.fieldName}: Joi.date()${target.mandatoryField === "Oui" ? ".presence('required')": ".presence('optional')"},\n`,
     LONGTEXT: `  ${target.fieldName}: Joi.string()${target.mandatoryField === "Oui" ? ".presence('required')": ".presence('optional')"},\n`,
     TEXT: `  ${target.fieldName}: Joi.string()${target.mandatoryField === "Oui" ? ".presence('required')": ".presence('optional')"},\n`,
-    TIMESTAMP: `  ${target.fieldName}: Joi.date()${target.mandatoryField === "Oui" ? ".presence('required')": ".presence('optional')"},\n`,
+    TIMESTAMP: `  ${target.fieldName}: Joi.date().timestamp()${target.mandatoryField === "Oui" ? ".presence('required')": ".presence('optional')"},\n`,
   }
 
   return joyMatching[target.fieldType];
